@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Range(0.0f, 2.0f)]
-    public float X = 0;
-
-    [Range(0.0f, 5.0f)]
-    public float Y = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,20 +13,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown("right"))
-        //{
-        //    GetComponent<Rigidbody2D>().velocity = new Vector2(0.8f, 2);
-        //}
-        //if (Input.GetKeyDown("left"))
-        //{
-        //    GetComponent<Rigidbody2D>().velocity = new Vector2(-0.65f, 4.8f);
-        //}
-        //if (Input.GetKeyDown("down"))
-        //{
-        //    GetComponent<Rigidbody2D>().velocity = new Vector2(-0.9f, 2);
-        //}
-
-
         MoveUpRight();
         MoveUpLeft();
         MoveDownRight();
