@@ -3206,7 +3206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a84e1ffe1da9146a3d1f5e7024f93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 8300000, guid: ec29766bb7d17a64c812854056598979, type: 3}
+  background: {fileID: 8300000, guid: d0495e65f72886e4693e4eb63e9ea272, type: 3}
   start: {fileID: 8300000, guid: e6b96247eaf942140be507f1005d40c7, type: 3}
   victory: {fileID: 0}
   lose: {fileID: 0}
