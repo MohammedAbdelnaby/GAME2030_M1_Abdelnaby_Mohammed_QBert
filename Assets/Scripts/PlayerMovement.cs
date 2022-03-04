@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Sprite changeSprite;
 
+    public Transform TileOn;
     private bool IsOnGround = false;
     // Start is called before the first frame update
     void Start()
@@ -84,10 +85,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
-        transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
-        IsOnGround = true;
-        collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite = changeSprite;
+        if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily"))
+        {
+            Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
+            transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
+            IsOnGround = true;
+            collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite = changeSprite;
+            TileOn = collision.gameObject.transform;
+        }
+
+        if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)

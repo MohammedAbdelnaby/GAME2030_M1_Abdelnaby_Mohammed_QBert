@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BottomTile
+  - SideTile
+  - TopTile
+  - CornerTile
+  - InnerTile
+  - LeftCornerTile
+  - RightCornerTile
+  - Coily
+  - RedBall
+  - GreenBall
   layers:
   - Default
   - TransparentFX
