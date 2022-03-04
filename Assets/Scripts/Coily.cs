@@ -121,6 +121,14 @@ public class Coily : MonoBehaviour
             {
                 MoveUpLeft();
             }
+            else if(playerTileTransform.position.x == collision.transform.position.x && playerTileTransform.position.y > collision.transform.position.y)
+            {
+                MoveUpLeft();
+            }
+            else if (playerTileTransform.position.x == collision.transform.position.x && playerTileTransform.position.y < collision.transform.position.y)
+            {
+                MoveDownLeft();
+            }
             else if (playerTileTransform.position.x > collision.transform.position.x && playerTileTransform.position.y > collision.transform.position.y)
             {
                 MoveUpRight();
