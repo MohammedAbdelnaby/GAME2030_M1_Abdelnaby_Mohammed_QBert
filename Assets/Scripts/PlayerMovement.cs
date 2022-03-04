@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform TileOn;
     private bool IsOnGround = false;
+
+    private int Lifes = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -96,7 +98,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily")
         {
-            Destroy(this.gameObject);
+            Lifes--;
+            if (Lifes == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 
