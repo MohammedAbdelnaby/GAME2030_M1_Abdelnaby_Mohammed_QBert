@@ -6,6 +6,6 @@ public class LeaderBoardButton : MonoBehaviour
 {
     public void changeScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 }

@@ -51,7 +51,7 @@ public class GreenBall : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("GreenBall") && !collision.gameObject.CompareTag("RedBall"))
         {
             Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
             transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
@@ -61,6 +61,9 @@ public class GreenBall : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        IsOnGround = false;
+        if (!collision.gameObject.CompareTag("Coily") && !collision.gameObject.CompareTag("GreenBall") && !collision.gameObject.CompareTag("RedBall"))
+        {
+            IsOnGround = false;
+        }
     }
 }

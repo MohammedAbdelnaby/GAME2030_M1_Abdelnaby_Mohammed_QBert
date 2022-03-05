@@ -7,7 +7,6 @@ public class Coily : MonoBehaviour
     private bool IsOnGround = false;
     private bool LeftLane;
     private bool CoilyHatched = false;
-    [SerializeField]
     private GameObject player;
 
     [SerializeField]
@@ -32,6 +31,11 @@ public class Coily : MonoBehaviour
     {
         if (player != null)
         {
+            playerTileTransform = player.GetComponent<PlayerMovement>().TileOn;
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
             playerTileTransform = player.GetComponent<PlayerMovement>().TileOn;
         }
         if (!CoilyHatched)
@@ -87,7 +91,7 @@ public class Coily : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("GreenBall") && !collision.gameObject.CompareTag("RedBall"))
         {
             if (collision.gameObject.transform.parent.tag == "BottomTile" || collision.gameObject.transform.parent.tag == "LeftCornerTile" || collision.gameObject.transform.parent.tag == "RightCornerTile")
             {
@@ -102,7 +106,7 @@ public class Coily : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("GreenBall") && !collision.gameObject.CompareTag("RedBall"))
         {
             IsOnGround = false;
         }
