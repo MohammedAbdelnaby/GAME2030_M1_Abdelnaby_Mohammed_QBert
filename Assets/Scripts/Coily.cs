@@ -47,7 +47,7 @@ public class Coily : MonoBehaviour
             else
             {
                 MoveDownRight();
-                Debug.Log(IsOnGround);
+                //Debug.Log(IsOnGround);
             }
         }
     }

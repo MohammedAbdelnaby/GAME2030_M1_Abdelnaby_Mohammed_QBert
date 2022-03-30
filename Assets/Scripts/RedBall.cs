@@ -17,6 +17,7 @@ public class RedBall : MonoBehaviour
         {
             LeftLane = false;
         }
+        //Debug.Log(gameObject.tag);
     }
 
     // Update is called once per frame
@@ -51,7 +52,12 @@ public class RedBall : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily"))
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Elevator").Length; i++)
+        {
+            Physics2D.IgnoreCollision(GameObject.FindGameObjectsWithTag("Elevator")[i].gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+        }
+        
+        if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily" || collision.gameObject.tag == "Elevator"))
         {
             Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
             transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);

@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown("up"))
+        if (Input.GetKeyDown("up") || Input.GetKeyDown("[8]"))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = false;
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("left") || Input.GetKeyDown("[4]"))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = true;
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKeyDown("right") || Input.GetKeyDown("[6]"))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = false;
@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown("down"))
+        if (Input.GetKeyDown("down") || Input.GetKeyDown("[2]"))
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = true;
@@ -87,13 +87,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!(collision.gameObject.tag == "RedBall") && !(collision.gameObject.tag == "GreenBall") && !(collision.gameObject.tag == "Coily"))
+        if (!(collision.gameObject.tag == "RedBall") && !(collision.gameObject.tag == "GreenBall") && !(collision.gameObject.tag == "Coily") && !(collision.gameObject.tag == "Elevator"))
         {
             Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
             transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
             IsOnGround = true;
             collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite = changeSprite;
             TileOn = collision.gameObject.transform;
+        }
+        if (collision.gameObject.tag == "Elevator")
+        {
+            Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
+            transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
+            IsOnGround = true;
         }
 
         //if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily")

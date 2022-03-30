@@ -11,9 +11,9 @@ public class SpawnManger : MonoBehaviour
     [SerializeField]
     private GameObject Coily;
 
-    public float RedballSpawn = 0.5f;
+    public float RedballSpawn = 2.5f;
 
-    public float GreenballSpawn = 1.5f;
+    public float GreenballSpawn = 3.0f;
 
     private int numEnemySpawn = 0;
 
