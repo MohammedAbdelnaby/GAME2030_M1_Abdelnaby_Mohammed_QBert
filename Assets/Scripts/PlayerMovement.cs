@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform TileOn;
     private bool IsOnGround = false;
 
+    private bool onElavator = false;
+    private GameObject elevator;
     private int Lifes = 3;
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,17 @@ public class PlayerMovement : MonoBehaviour
         MoveDownRight();
         MoveDownLeft();
         Reset();
+        moveWithElavator();
+    }
+
+    private void moveWithElavator()
+    {
+        if (onElavator && elevator.GetComponent<BoxCollider2D>().enabled)
+        {
+            Vector3 Offset = new Vector3(0.0f,elevator.GetComponent<SpriteRenderer>().size.y /2, 0.0f);
+            transform.position = new Vector3(elevator.transform.position.x, elevator.transform.position.y, transform.position.z) + (Offset * 2);
+        }
+
     }
 
     private void MoveUpRight()
@@ -97,9 +110,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "Elevator")
         {
-            Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
-            transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
-            IsOnGround = true;
+            onElavator = true;
+            elevator = collision.gameObject;
         }
 
         //if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily")

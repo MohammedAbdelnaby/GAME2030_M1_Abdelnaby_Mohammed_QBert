@@ -31,6 +31,10 @@ public class RedBall : MonoBehaviour
         {
             MoveDownRight();
         }
+        if (transform.position.y <= -6.0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void MoveDownRight()

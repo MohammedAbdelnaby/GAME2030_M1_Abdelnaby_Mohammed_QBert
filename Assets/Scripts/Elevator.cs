@@ -8,6 +8,9 @@ public class Elevator : MonoBehaviour
     [SerializeField]
     Transform GoTo;
 
+    [SerializeField]
+    private bool IsLeft = true;
+
     Vector3 direction;
     // Start is called before the first frame update
     void Start()
@@ -19,17 +22,40 @@ public class Elevator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (move)
+        if (IsLeft)
         {
-            if (!(transform.position.x >= GoTo.position.x))
+            if (move)
             {
-                transform.position += -direction * Time.deltaTime;
+                if (!(transform.position.x >= GoTo.position.x))
+                {
+                    transform.position += -direction * Time.deltaTime;
+                }
+                else
+                {
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    transform.position += Vector3.up * Time.deltaTime;
+                }
             }
-            else
+        }
+        else
+        {
+            if (move)
             {
-                GetComponent<BoxCollider2D>().enabled = false;
-                transform.position += Vector3.up * Time.deltaTime;
+                if (!(transform.position.x <= GoTo.position.x))
+                {
+                    transform.position += -direction * Time.deltaTime;
+                }
+                else
+                {
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    transform.position += Vector3.up * Time.deltaTime;
+                }
             }
+        }
+
+        if (transform.position.y >= 6.0f)
+        {
+            Destroy(gameObject);
         }
     }
 

@@ -50,6 +50,10 @@ public class Coily : MonoBehaviour
                 //Debug.Log(IsOnGround);
             }
         }
+        if (transform.position.y <= -6.0f)
+        {
+            Destroy(gameObject);
+        }
     }
     private void MoveUpRight()
     {
@@ -91,7 +95,11 @@ public class Coily : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("GreenBall") && !collision.gameObject.CompareTag("RedBall"))
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Elevator").Length; i++)
+        {
+            Physics2D.IgnoreCollision(GameObject.FindGameObjectsWithTag("Elevator")[i].gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
+        }
+        if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily" || collision.gameObject.tag == "Elevator"))
         {
             if (collision.gameObject.transform.parent.tag == "BottomTile" || collision.gameObject.transform.parent.tag == "LeftCornerTile" || collision.gameObject.transform.parent.tag == "RightCornerTile")
             {
