@@ -16,14 +16,6 @@ public class Coily : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Random.value >= 0.5)
-        {
-            LeftLane = true;
-        }
-        else
-        {
-            LeftLane = false;
-        }
     }
 
     // Update is called once per frame
@@ -31,23 +23,22 @@ public class Coily : MonoBehaviour
     {
         if (player != null)
         {
-            playerTileTransform = player.GetComponent<PlayerMovement>().TileOn;
+            playerTileTransform = player.GetComponent<PlayerMovement>().TileOn.transform;
         }
         else
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            playerTileTransform = player.GetComponent<PlayerMovement>().TileOn;
+            playerTileTransform = player.GetComponent<PlayerMovement>().TileOn.transform;
         }
         if (!CoilyHatched)
         {
-            if (LeftLane)
+            if (Random.value >= 0.5)
             {
                 MoveDownLeft();
             }
             else
             {
                 MoveDownRight();
-                //Debug.Log(IsOnGround);
             }
         }
         if (transform.position.y <= -6.0f)
@@ -101,14 +92,21 @@ public class Coily : MonoBehaviour
         }
         if (!(collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily" || collision.gameObject.tag == "Elevator"))
         {
-            if (collision.gameObject.transform.parent.tag == "BottomTile" || collision.gameObject.transform.parent.tag == "LeftCornerTile" || collision.gameObject.transform.parent.tag == "RightCornerTile")
+            if (collision.gameObject.transform.parent != null)
             {
-                CoilyHatched = true;
-                GetComponent<SpriteRenderer>().sprite = CoilySprite;
+                if (collision.gameObject.transform.parent.tag == "BottomTile" || collision.gameObject.transform.parent.tag == "LeftCornerTile" || collision.gameObject.transform.parent.tag == "RightCornerTile")
+                {
+                    CoilyHatched = true;
+                    GetComponent<SpriteRenderer>().sprite = CoilySprite;
+                }
             }
             Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y / 2, 0.0f);
             transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
             IsOnGround = true;
+        }
+        else
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>(), true);
         }
     }
 

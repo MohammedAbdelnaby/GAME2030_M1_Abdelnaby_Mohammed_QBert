@@ -9,21 +9,12 @@ public class RedBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Random.value >= 0.5)
-        {
-            LeftLane = true;
-        }
-        else
-        {
-            LeftLane = false;
-        }
-        //Debug.Log(gameObject.tag);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (LeftLane)
+        if (Random.value >= 0.5)
         {
             MoveDownLeft();
         }

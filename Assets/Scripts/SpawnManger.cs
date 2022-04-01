@@ -11,6 +11,9 @@ public class SpawnManger : MonoBehaviour
     [SerializeField]
     private GameObject Coily;
 
+    [SerializeField]
+    private GameObject Player;
+
     public float RedballSpawn = 2.5f;
 
     public float GreenballSpawn = 3.0f;
@@ -21,28 +24,31 @@ public class SpawnManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RedballSpawn -= Time.deltaTime;
-        GreenballSpawn -= Time.deltaTime;
-        TimeWait -= Time.deltaTime;
-        if (RedballSpawn <= 0.0f && TimeWait <= 0.0f)
+        if (Player.GetComponent<PlayerMovement>().DeathTime == 0.0f)
         {
-            SpawnRedBall();
-            RedballSpawn = 3.0f;
-            numEnemySpawn++;
-            TimeWait = 1.0f;
-        }
-        else if (GreenballSpawn <= 0.0f && TimeWait <= 0.0f)
-        {
-            SpawnGreenBall();
-            GreenballSpawn = 5.0f;
-            numEnemySpawn++;
-            TimeWait = 1.0f;
-        }
-        else if (GameObject.FindGameObjectWithTag("Coily") == null && numEnemySpawn == 3 && TimeWait <= 0.0f)
-        {
-            SpawnCoily();
-            numEnemySpawn = 0;
-            TimeWait = 1.0f;
+            RedballSpawn -= Time.deltaTime;
+            GreenballSpawn -= Time.deltaTime;
+            TimeWait -= Time.deltaTime;
+            if (RedballSpawn <= 0.0f && TimeWait <= 0.0f)
+            {
+                SpawnRedBall();
+                RedballSpawn = 3.0f;
+                numEnemySpawn++;
+                TimeWait = 1.0f;
+            }
+            else if (GreenballSpawn <= 0.0f && TimeWait <= 0.0f)
+            {
+                SpawnGreenBall();
+                GreenballSpawn = 5.0f;
+                numEnemySpawn++;
+                TimeWait = 1.0f;
+            }
+            else if (GameObject.FindGameObjectWithTag("Coily") == null && numEnemySpawn == 3 && TimeWait <= 0.0f)
+            {
+                SpawnCoily();
+                numEnemySpawn = 0;
+                TimeWait = 1.0f;
+            }
         }
     }
 
@@ -50,33 +56,33 @@ public class SpawnManger : MonoBehaviour
     {
         if (Random.value >= 0.5f)
         {
-            Instantiate(RedBall, new Vector3(-1.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(RedBall, new Vector3(-1.5f, 5.5f, -10.02f), Quaternion.identity);
         }
         else
         {
-            Instantiate(RedBall, new Vector3(-0.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(RedBall, new Vector3(-0.5f, 5.5f, -10.02f), Quaternion.identity);
         }
     }
     private void SpawnGreenBall()
     {
         if (Random.value >= 0.5f)
         {
-            Instantiate(GreenBall, new Vector3(-1.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(GreenBall, new Vector3(-1.5f, 5.5f, -10.02f), Quaternion.identity);
         }
         else
         {
-            Instantiate(GreenBall, new Vector3(-0.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(GreenBall, new Vector3(-0.5f, 5.5f, -10.02f), Quaternion.identity);
         }
     }
     private void SpawnCoily()
     {
         if (Random.value >= 0.5f)
         {
-            Instantiate(Coily, new Vector3(-1.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(Coily, new Vector3(-1.5f, 5.5f, -10.02f), Quaternion.identity);
         }
         else
         {
-            Instantiate(Coily, new Vector3(-0.5f, 5.5f, 0), Quaternion.identity);
+            Instantiate(Coily, new Vector3(-0.5f, 5.5f, -10.02f), Quaternion.identity);
         }
     }
 }
