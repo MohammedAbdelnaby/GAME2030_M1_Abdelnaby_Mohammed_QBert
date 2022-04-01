@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     GetComponent<BoxCollider2D>().enabled = false;
-                    transform.position = new Vector3(transform.position.x, transform.position.y, TileOn.transform.position.z - 0.5f);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, TileOn.transform.position.z - 1.0f);
                 }
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.75f, 4.5f);

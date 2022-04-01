@@ -24,7 +24,7 @@ public class SpawnManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player.GetComponent<PlayerMovement>().DeathTime == 0.0f)
+        if (Player.GetComponent<PlayerMovement>().DeathTime == 0.0f && Player != null)
         {
             RedballSpawn -= Time.deltaTime;
             GreenballSpawn -= Time.deltaTime;
