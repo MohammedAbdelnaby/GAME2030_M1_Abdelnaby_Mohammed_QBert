@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,12 +9,17 @@ public class PlayerMovement : MonoBehaviour
     private Sprite changeSprite;
     [SerializeField]
     private SpriteRenderer swear;
+    [SerializeField]
+    private Text ScoreText;
+
+
+    private int score = 000;
 
     public GameObject TileOn;
     private bool IsOnGround = false;
 
     private bool onElavator = false;
-    private GameObject elevator;
+    public GameObject elevator;
     private int Lifes = 3;
 
     public float DeathTime = 0.0f;
@@ -24,12 +30,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Score();
         if (transform.position.y <= -6.0f)
         {
             Reset();
             GetComponent<BoxCollider2D>().enabled = true;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            transform.position = new Vector3(-1.0f, 3.0f, -5.224f);
+            transform.position = new Vector3(-1.0f, 3.0f, -1.0f);
         }
         if (DeathTime > 0.0f)
         {
@@ -42,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             Controller();
             moveWithElavator();
         }
+        Debug.Log(GetComponent<Rigidbody2D>().velocity);
     }
 
     private void Controller()
@@ -52,16 +60,20 @@ public class PlayerMovement : MonoBehaviour
         MoveDownLeft();
     }
 
+    private void Score()
+    {
+        ScoreText.text = score.ToString();
+    }
+
     private void moveWithElavator()
     {
-        if (elevator != null)
+
+        if (onElavator && elevator.GetComponent<BoxCollider2D>().enabled)
         {
-            if (onElavator && elevator.GetComponent<BoxCollider2D>().enabled)
-            {
-                Vector3 Offset = new Vector3(0.0f, elevator.GetComponent<SpriteRenderer>().size.y / 2, 0.0f);
-                transform.position = new Vector3(elevator.transform.position.x, elevator.transform.position.y, transform.position.z) + (Offset * 2);
-            }
+            Vector3 Offset = new Vector3(0.0f, elevator.GetComponent<SpriteRenderer>().size.y / 2, 0.0f);
+            transform.position = new Vector3(elevator.transform.position.x, elevator.transform.position.y, transform.position.z) + (Offset * 2);
         }
+
     }
 
     private void MoveUpRight()
@@ -74,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((TileOn.transform.parent.tag == "TopTile" || TileOn.transform.parent.tag == "RightSideTile" || TileOn.transform.parent.tag == "RightCornerTile"))
             {
+                Debug.Log(TileOn.transform.parent.name + " " + RightElevator);
                 if ((RightElevator && (TileOn.transform.parent.name == "Tile (10)")))
                 {
                     RightElevator = false;
@@ -86,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
         }
     }
     private void MoveUpLeft()
@@ -98,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((TileOn.transform.parent.tag == "TopTile" || TileOn.transform.parent.tag == "LeftSideTile" || TileOn.transform.parent.tag == "LeftCornerTile"))
             {
+                Debug.Log(TileOn.transform.parent.name + " " + LeftElevator);
                 if ((LeftElevator && (TileOn.transform.parent.name == "Tile (14)")))
                 {
                     LeftElevator = false;
@@ -110,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = true;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
         }
     }
     private void MoveDownRight()
@@ -127,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1.0f);
         }
     }
     private void MoveDownLeft()
@@ -144,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = true;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1.0f);
         }
     }
 
@@ -169,14 +187,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!(collision.gameObject.tag == "RedBall") && !(collision.gameObject.tag == "GreenBall") && !(collision.gameObject.tag == "Coily") && !(collision.gameObject.tag == "Elevator"))
-        {
-            Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
-            transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
-            IsOnGround = true;
-            collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite = changeSprite;
-            TileOn = collision.gameObject;
-        }
         if (collision.gameObject.tag == "Elevator")
         {
             onElavator = true;
@@ -185,6 +195,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             elevator = null;
+        }
+        if (!(collision.gameObject.tag == "RedBall") && !(collision.gameObject.tag == "GreenBall") && !(collision.gameObject.tag == "Coily"))
+        {
+            Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
+            transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
+            IsOnGround = true;
+            //transform.position = new Vector3(transform.position.x, transform.position.y, collision.transform.position.z - 0.1f);
+            if (collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite != changeSprite)
+            {
+                score += 25;
+            }
+            collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite = changeSprite;
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            TileOn = collision.gameObject;
         }
     }
 

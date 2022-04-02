@@ -648,6 +648,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.43754315
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Size.y
+      value: 0.01408416
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.000823617
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.030000001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
 --- !u!4 &162577193 stripped
@@ -777,6 +793,10 @@ PrefabInstance:
       propertyPath: swear
       value: 
       objectReference: {fileID: 96352080}
+    - target: {fileID: 1799862829, guid: d51df817bed972344946bba05cd6f099, type: 3}
+      propertyPath: ScoreText
+      value: 
+      objectReference: {fileID: 1615030804}
     - target: {fileID: 4604658827752784197, guid: d51df817bed972344946bba05cd6f099, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -811,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055273437245139095, guid: d51df817bed972344946bba05cd6f099, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.224632
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9055273437245139095, guid: d51df817bed972344946bba05cd6f099, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3603,7 +3623,7 @@ GameObject:
   - component: {fileID: 1615030805}
   - component: {fileID: 1615030804}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4935,6 +4955,22 @@ PrefabInstance:
     - target: {fileID: 2809130075933367290, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Size.x
+      value: 0.43679392
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Size.y
+      value: 0.01408416
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.00035995245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097840928436013947, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.030000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0adb2585692dbc2478f6e2a1f0983dd6, type: 3}
