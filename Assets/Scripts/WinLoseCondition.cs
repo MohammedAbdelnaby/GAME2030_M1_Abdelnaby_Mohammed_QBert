@@ -9,6 +9,9 @@ public class WinLoseCondition : MonoBehaviour
     public int count = 0;
     [SerializeField]
     private Sprite TileSprite;
+
+    [SerializeField]
+    private GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,15 @@ public class WinLoseCondition : MonoBehaviour
  
         if (count == 28)
         {
+            if (player.GetComponent<PlayerMovement>().GetLeftElevator())
+            {
+                player.GetComponent<PlayerMovement>().SetScore(100);
+            }
+            if (player.GetComponent<PlayerMovement>().GetRightElevator())
+            {
+                player.GetComponent<PlayerMovement>().SetScore(100);
+            }
+            player.GetComponent<PlayerMovement>().SetScore(1000);
             SceneManager.LoadScene(3);
         }
     }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer swear;
     [SerializeField]
     private Text ScoreText;
+
+    [SerializeField]
+    private GameObject Life1;
+    [SerializeField]
+    private GameObject Life2;
 
 
     private int score = 000;
@@ -30,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Life();
         Score();
         if (transform.position.y <= -6.0f)
         {
@@ -40,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (DeathTime > 0.0f)
         {
+            Vector3 Offset = new Vector3(0.0f, TileOn.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
+            transform.position = new Vector3(TileOn.transform.position.x, TileOn.transform.position.y, TileOn.transform.position.z - 1.0f) + (Offset * 2);
             DeathTime -= Time.deltaTime;
         }
         else
@@ -49,7 +59,26 @@ public class PlayerMovement : MonoBehaviour
             Controller();
             moveWithElavator();
         }
-        Debug.Log(GetComponent<Rigidbody2D>().velocity);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public bool GetLeftElevator()
+    {
+        return LeftElevator;
+    }
+
+    public bool GetRightElevator()
+    {
+        return RightElevator;
+    }
+
+    public void SetScore(int x)
+    {
+        score += x;
     }
 
     private void Controller()
@@ -60,6 +89,18 @@ public class PlayerMovement : MonoBehaviour
         MoveDownLeft();
     }
 
+    private void Life()
+    {
+        if (Lifes == 2)
+        {
+            Life1.GetComponent<Image>().enabled = false;
+        }
+        if (Lifes == 1)
+        {
+            Life2.GetComponent<Image>().enabled = false;
+        }
+    }
+
     private void Score()
     {
         ScoreText.text = score.ToString();
@@ -67,13 +108,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void moveWithElavator()
     {
-
-        if (onElavator && elevator.GetComponent<BoxCollider2D>().enabled)
+        if (elevator != null)
         {
-            Vector3 Offset = new Vector3(0.0f, elevator.GetComponent<SpriteRenderer>().size.y / 2, 0.0f);
-            transform.position = new Vector3(elevator.transform.position.x, elevator.transform.position.y, transform.position.z) + (Offset * 2);
+            if (onElavator && elevator.GetComponent<BoxCollider2D>().enabled)
+            {
+                Vector3 Offset = new Vector3(0.0f, elevator.GetComponent<SpriteRenderer>().size.y / 2, 0.0f);
+                transform.position = new Vector3(elevator.transform.position.x, elevator.transform.position.y, transform.position.z) + (Offset * 2);
+            }
         }
-
     }
 
     private void MoveUpRight()
@@ -86,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((TileOn.transform.parent.tag == "TopTile" || TileOn.transform.parent.tag == "RightSideTile" || TileOn.transform.parent.tag == "RightCornerTile"))
             {
-                Debug.Log(TileOn.transform.parent.name + " " + RightElevator);
                 if ((RightElevator && (TileOn.transform.parent.name == "Tile (10)")))
                 {
                     RightElevator = false;
@@ -112,7 +153,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((TileOn.transform.parent.tag == "TopTile" || TileOn.transform.parent.tag == "LeftSideTile" || TileOn.transform.parent.tag == "LeftCornerTile"))
             {
-                Debug.Log(TileOn.transform.parent.name + " " + LeftElevator);
                 if ((LeftElevator && (TileOn.transform.parent.name == "Tile (14)")))
                 {
                     LeftElevator = false;
@@ -169,6 +209,10 @@ public class PlayerMovement : MonoBehaviour
     {
         DeathTime = 2.0f;
         swear.enabled = true;
+        if (Lifes == 0)
+        {
+            SceneManager.LoadScene(4);
+        }
         Lifes--;
 
         for (int i = 0; i < GameObject.FindGameObjectsWithTag("RedBall").Length; i++)
@@ -201,7 +245,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 Offset = new Vector3(0.0f, collision.gameObject.GetComponent<BoxCollider2D>().size.y, 0.0f);
             transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, transform.position.z) + (Offset * 2);
             IsOnGround = true;
-            //transform.position = new Vector3(transform.position.x, transform.position.y, collision.transform.position.z - 0.1f);
             if (collision.gameObject.transform.parent.gameObject.GetComponent<SpriteRenderer>().sprite != changeSprite)
             {
                 score += 25;
@@ -214,13 +257,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "GreenBall" || collision.gameObject.tag == "Coily")
+        if (collision.gameObject.tag == "RedBall" || collision.gameObject.tag == "Coily")
         {
             Reset();
-            if (Lifes == 0)
-            {
-                Destroy(this.gameObject);
-            }
+        }
+        if (collision.gameObject.tag == "GreenBall")
+        {
+            Destroy(collision.gameObject);
+            score += 100;
         }
     }
 

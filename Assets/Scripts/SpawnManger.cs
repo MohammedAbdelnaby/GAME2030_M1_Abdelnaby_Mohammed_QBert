@@ -8,6 +8,8 @@ public class SpawnManger : MonoBehaviour
     private GameObject RedBall;
     [SerializeField]
     private GameObject GreenBall;
+
+
     [SerializeField]
     private GameObject Coily;
 
@@ -18,7 +20,7 @@ public class SpawnManger : MonoBehaviour
 
     public float GreenballSpawn = 3.0f;
 
-    private int numEnemySpawn = 0;
+    public int numEnemySpawn = 0;
 
     private float TimeWait = 1.0f;
     // Update is called once per frame
@@ -29,24 +31,30 @@ public class SpawnManger : MonoBehaviour
             RedballSpawn -= Time.deltaTime;
             GreenballSpawn -= Time.deltaTime;
             TimeWait -= Time.deltaTime;
+            if (GameObject.FindGameObjectWithTag("Coily") == null && numEnemySpawn == 3 && TimeWait <= 0.0f)
+            {
+                SpawnCoily();
+                numEnemySpawn = 0;
+                TimeWait = 1.0f;
+            }
             if (RedballSpawn <= 0.0f && TimeWait <= 0.0f)
             {
                 SpawnRedBall();
                 RedballSpawn = 3.0f;
-                numEnemySpawn++;
+                if (GameObject.FindGameObjectWithTag("Coily") == null)
+                {
+                    numEnemySpawn++;
+                }
                 TimeWait = 1.0f;
             }
             else if (GreenballSpawn <= 0.0f && TimeWait <= 0.0f)
             {
                 SpawnGreenBall();
                 GreenballSpawn = 5.0f;
-                numEnemySpawn++;
-                TimeWait = 1.0f;
-            }
-            else if (GameObject.FindGameObjectWithTag("Coily") == null && numEnemySpawn == 3 && TimeWait <= 0.0f)
-            {
-                SpawnCoily();
-                numEnemySpawn = 0;
+                if (GameObject.FindGameObjectWithTag("Coily") == null)
+                {
+                    numEnemySpawn++;
+                }
                 TimeWait = 1.0f;
             }
         }
