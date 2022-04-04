@@ -32,6 +32,7 @@ public class WinLoseCondition : MonoBehaviour
  
         if (count == 28)
         {
+            HighScore();
             if (player.GetComponent<PlayerMovement>().GetLeftElevator())
             {
                 player.GetComponent<PlayerMovement>().SetScore(100);
@@ -45,4 +46,48 @@ public class WinLoseCondition : MonoBehaviour
         }
     }
 
+    private void HighScore()
+    {
+        if (PlayerPrefs.GetInt("Top1") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            Debug.Log(player.GetComponent<PlayerMovement>().GetScore());
+            PlayerPrefs.SetInt("Top1", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top2") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top2", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top3") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top3", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top4") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top4", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top5") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top5", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top6") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top6", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top7") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top7", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top8") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top8", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top9") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top9", player.GetComponent<PlayerMovement>().GetScore());
+        }
+        else if (PlayerPrefs.GetInt("Top10") <= player.GetComponent<PlayerMovement>().GetScore())
+        {
+            PlayerPrefs.SetInt("Top10", player.GetComponent<PlayerMovement>().GetScore());
+        }
+    }
 }

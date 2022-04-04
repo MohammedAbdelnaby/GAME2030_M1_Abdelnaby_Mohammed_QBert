@@ -205,16 +205,62 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void HighScore()
+    {
+        if (PlayerPrefs.GetInt("Top1") <= score)
+        {
+            //Debug.Log(player.GetComponent<PlayerMovement>().GetScore());
+            PlayerPrefs.SetInt("Top1", score);
+        }
+        else if (PlayerPrefs.GetInt("Top2") <= score)
+        {
+            PlayerPrefs.SetInt("Top2", score);
+        }
+        else if (PlayerPrefs.GetInt("Top3") <= score)
+        {
+            PlayerPrefs.SetInt("Top3", score);
+        }
+        else if (PlayerPrefs.GetInt("Top4") <= score)
+        {
+            PlayerPrefs.SetInt("Top4", score);
+        }
+        else if (PlayerPrefs.GetInt("Top5") <= score)
+        {
+            PlayerPrefs.SetInt("Top5", score);
+        }
+        else if (PlayerPrefs.GetInt("Top6") <= score)
+        {
+            PlayerPrefs.SetInt("Top6", score);
+        }
+        else if (PlayerPrefs.GetInt("Top7") <= score)
+        {
+            PlayerPrefs.SetInt("Top7", score);
+        }
+        else if (PlayerPrefs.GetInt("Top8") <= score)
+        {
+            PlayerPrefs.SetInt("Top8", score);
+        }
+        else if (PlayerPrefs.GetInt("Top9") <= score)
+        {
+            PlayerPrefs.SetInt("Top9", score);
+        }
+        else if (PlayerPrefs.GetInt("Top10") <= score)
+        {
+            PlayerPrefs.SetInt("Top10", score);
+        }
+
+    }
+
     private void Reset()
     {
         DeathTime = 2.0f;
         swear.enabled = true;
+        Lifes--;
         if (Lifes == 0)
         {
+            HighScore();
             SceneManager.LoadScene(4);
         }
-        Lifes--;
-
         for (int i = 0; i < GameObject.FindGameObjectsWithTag("RedBall").Length; i++)
         {
             Destroy(GameObject.FindGameObjectsWithTag("RedBall")[i]);
