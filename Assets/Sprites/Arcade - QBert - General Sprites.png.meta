@@ -2242,8 +2242,8 @@ TextureImporter:
       name: Arcade - QBert - General Sprites_60
       rect:
         serializedVersion: 2
-        x: 288
-        y: 224
+        x: 441
+        y: 270
         width: 32
         height: 32
       alignment: 0
@@ -6749,6 +6749,27 @@ TextureImporter:
       bones: []
       spriteID: a12bd8034ac2a3f10800000000000000
       internalID: 2250160047525835290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arcade - QBert - General Sprites_275
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 368
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3363e51a44e069490800000000000000
+      internalID: -7739983221661747661
       vertices: []
       indices: 
       edges: []

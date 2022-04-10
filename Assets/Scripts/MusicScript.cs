@@ -8,10 +8,6 @@ public class MusicScript : MonoBehaviour
     private AudioClip background;
     [SerializeField]
     private AudioClip start;
-    [SerializeField]
-    private AudioClip victory;
-    [SerializeField]
-    private AudioClip lose;
 
     private AudioSource music;
     void Start()

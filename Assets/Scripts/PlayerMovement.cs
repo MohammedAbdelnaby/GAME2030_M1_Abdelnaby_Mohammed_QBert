@@ -20,6 +20,19 @@ public class PlayerMovement : MonoBehaviour
     private GameObject Life2;
 
 
+    [SerializeField]
+    private AudioClip Jumping;
+    [SerializeField]
+    private AudioClip ElevatorSFX;
+    [SerializeField]
+    private AudioClip EatsSlime;
+    [SerializeField]
+    private AudioClip Death;
+
+    [SerializeField]
+    private AudioSource SFX;
+
+
     private int score = 000;
 
     public GameObject TileOn;
@@ -33,6 +46,12 @@ public class PlayerMovement : MonoBehaviour
 
     private bool LeftElevator = true;
     private bool RightElevator = true;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -141,6 +160,8 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = false;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
+            SFX.clip = Jumping;
+            SFX.Play();
         }
     }
     private void MoveUpLeft()
@@ -166,6 +187,8 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 4.5f);
             GetComponent<SpriteRenderer>().flipX = true;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1.0f);
+            SFX.clip = Jumping;
+            SFX.Play();
         }
     }
     private void MoveDownRight()
@@ -184,6 +207,8 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = false;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1.0f);
+            SFX.clip = Jumping;
+            SFX.Play();
         }
     }
     private void MoveDownLeft()
@@ -202,6 +227,8 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(-0.75f, 2.0f);
             GetComponent<SpriteRenderer>().flipX = true;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1.0f);
+            SFX.clip = Jumping;
+            SFX.Play();
         }
     }
 
@@ -256,8 +283,12 @@ public class PlayerMovement : MonoBehaviour
         DeathTime = 2.0f;
         swear.enabled = true;
         Lifes--;
+        SFX.clip = Death;
+        SFX.Play();
         if (Lifes == 0)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             HighScore();
             SceneManager.LoadScene(4);
         }
@@ -279,6 +310,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Elevator")
         {
+            SFX.clip = ElevatorSFX;
+            SFX.Play();
             onElavator = true;
             elevator = collision.gameObject;
         }
@@ -309,6 +342,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.tag == "GreenBall")
         {
+            SFX.clip = EatsSlime;
+            SFX.Play();
             Destroy(collision.gameObject);
             score += 100;
         }

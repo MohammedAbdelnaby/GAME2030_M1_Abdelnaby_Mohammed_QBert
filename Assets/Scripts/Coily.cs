@@ -5,12 +5,20 @@ using UnityEngine;
 public class Coily : MonoBehaviour
 {
     private bool IsOnGround = false;
-    private bool LeftLane;
     private bool CoilyHatched = false;
     private GameObject player;
 
     [SerializeField]
     private Sprite CoilySprite;
+
+    [SerializeField]
+    private AudioClip Jumping;
+
+    [SerializeField]
+    private AudioClip SlimeJumping;
+
+    [SerializeField]
+    private AudioSource SFX;
 
     private Transform playerTileTransform;
     // Start is called before the first frame update
@@ -54,6 +62,15 @@ public class Coily : MonoBehaviour
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 4.5f);
         GetComponent<SpriteRenderer>().flipX = false;
+        if (!CoilyHatched)
+        {
+            SFX.clip = SlimeJumping;
+        }
+        else
+        {
+            SFX.clip = Jumping;
+        }
+        SFX.Play();
 
     }
     private void MoveUpLeft()
@@ -64,6 +81,15 @@ public class Coily : MonoBehaviour
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(-0.80f, 4.5f);
         GetComponent<SpriteRenderer>().flipX = true;
+        if (!CoilyHatched)
+        {
+            SFX.clip = SlimeJumping;
+        }
+        else
+        {
+            SFX.clip = Jumping;
+        }
+        SFX.Play();
     }
     private void MoveDownRight()
     {
@@ -73,6 +99,15 @@ public class Coily : MonoBehaviour
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 2.0f);
         GetComponent<SpriteRenderer>().flipX = false;
+        if (!CoilyHatched)
+        {
+            SFX.clip = SlimeJumping;
+        }
+        else
+        {
+            SFX.clip = Jumping;
+        }
+        SFX.Play();
     }
     private void MoveDownLeft()
     {
@@ -82,6 +117,15 @@ public class Coily : MonoBehaviour
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(-0.80f, 2.0f);
         GetComponent<SpriteRenderer>().flipX = true;
+        if (!CoilyHatched)
+        {
+            SFX.clip = SlimeJumping;
+        }
+        else
+        {
+            SFX.clip = Jumping;
+        }
+        SFX.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -41,6 +41,8 @@ public class WinLoseCondition : MonoBehaviour
             {
                 player.GetComponent<PlayerMovement>().SetScore(100);
             }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             player.GetComponent<PlayerMovement>().SetScore(1000);
             SceneManager.LoadScene(3);
         }

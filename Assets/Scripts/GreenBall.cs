@@ -5,7 +5,12 @@ using UnityEngine;
 public class GreenBall : MonoBehaviour
 {
     private bool IsOnGround = false;
-    private bool LeftLane;
+
+    [SerializeField]
+    private AudioClip Jumping;
+
+    [SerializeField]
+    private AudioSource SFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +41,8 @@ public class GreenBall : MonoBehaviour
             return;
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(0.80f, 2.0f);
+        SFX.clip = Jumping;
+        SFX.Play();
     }
     private void MoveDownLeft()
     {
@@ -44,6 +51,8 @@ public class GreenBall : MonoBehaviour
             return;
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(-0.80f, 2.0f);
+        SFX.clip = Jumping;
+        SFX.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
